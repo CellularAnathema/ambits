@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var ambitSchema = new Schema({
   refName: {type: String, index: true}, //three letters and then a number for repeats
   name: String, //the name displayed to the user.
+  //user (a DocumentId associated with the user that created it)
   coords: {
     latitude: Number,
     longitude: Number
@@ -17,7 +18,7 @@ var ambitSchema = new Schema({
     sat: Boolean,
     sun: Boolean
   },
-  createdOn: Date,
+  startDate: Date,
   checkIns: [Date] // a history of successful check-ins
   //time (when during the day are you supposed to check in)
   //repeats (every week? every other week? is this necessary?)
