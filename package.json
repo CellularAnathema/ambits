@@ -5,7 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node server/server.js & mocha server/specs/; pkill -n node"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,10 @@
   "bugs": {
     "url": "https://github.com/CellularAnathema/ambits/issues"
   },
-  "homepage": "https://github.com/CellularAnathema/ambits#readme"
+  "homepage": "https://github.com/CellularAnathema/ambits#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "supertest": "^2.0.1"
+  }
 }
