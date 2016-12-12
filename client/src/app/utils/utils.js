@@ -82,3 +82,15 @@ export const checkinAmbit = function(ambit, callback) {
   console.log('your device does not support geolocation :(');
  }
 };
+
+export const addNewAmbit = function(ambit, callback) {
+  $.ajax({
+    url: '__urlgoeshere__', //TODO: define the interface.
+    data: {ambit},
+    type: 'post',
+    contentType: 'application/json',
+    sucess: function(data) {
+      callback(data);
+    }
+  });
+};
