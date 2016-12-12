@@ -8,6 +8,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import Main from './Main'; // Our custom react components
 
 import Create from './createAmbit/createAmbit.jsx';
+import Display from './displayAmbit/displayAmbit.jsx';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -22,6 +23,7 @@ class Home extends React.Component {
         <Link to="/create">Create Ambit</Link>
         <Link to="/checkin">Check-In</Link>
         <Link to="/schedule">Schedule</Link>
+        <Link to="/display">Display</Link>
       </div>
     );
   }
@@ -65,12 +67,11 @@ render(
   //React-Router with nested routes
   <Router history={browserHistory}>
     <Route component={Main}>
-      <Route path='/' component={CheckinContainer}/>
+      <Route path='/' component={Home}/>
       <Route path='/create' component={Create}/>
+      <Route path='checkin' component={CheckIn}/>
+      <Route path='schedule' component={Schedule}/>
+      <Route path='display' component={Display}/>
     </Route>
   </Router>,
   document.getElementById('app'));
-
-
-
-

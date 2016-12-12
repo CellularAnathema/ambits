@@ -9,15 +9,7 @@ var ambitSchema = new Schema({
     latitude: Number,
     longitude: Number
   },
-  weekdays: {
-    mon: Boolean,
-    tue: Boolean,
-    wed: Boolean,
-    thu: Boolean,
-    fri: Boolean,
-    sat: Boolean,
-    sun: Boolean
-  },
+  weekdays: [Boolean], //0 is Sunday, 6 is Saturday
   startDate: Date,
   checkIns: [Date] // a history of successful check-ins
   //time (when during the day are you supposed to check in)
