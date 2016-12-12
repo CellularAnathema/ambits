@@ -41,7 +41,7 @@ const daysOftheWeek = function(boolArr) {
   var result ='';
   var displayDays = boolArr.map((b, i) => {
     b ? days.i : b;
-  }).filter(d => (!!d)).forEach((day, i, a) => { 
+  }).filter(d => (!!d)).forEach((day, i, a) => {
     if(i === a.length) {
       result += day;
     } else {
@@ -51,7 +51,7 @@ const daysOftheWeek = function(boolArr) {
   return result;
 };
 
-//Decorate ambits for client side 
+//Decorate ambits for client side
 const decorateAmbits = function(ambits) {
   ambits.forEach(ambit => {
     if(ambit.weekdays.every(day => day === true)) {
@@ -139,7 +139,7 @@ export const checkinAmbit = function(ambit, successCb,errorCb) {
       //inform user that it is not a valid checkin attempt
       //cheating
       errorCb();
-    } 
+    }
   }, function(err) {
     throw err;
   }, {timeout: 10000});
@@ -148,3 +148,15 @@ export const checkinAmbit = function(ambit, successCb,errorCb) {
   console.log('your device does not support geolocation :(');
  }
 };
+
+// export const addNewAmbit = function(ambit, callback) {
+//   $.ajax({
+//     url: '/ambits', //TODO: define the interface.
+//     data: {ambit},
+//     type: 'post',
+//     contentType: 'application/json',
+//     sucess: function(data) {
+//       callback(data);
+//     }
+//   });
+// };

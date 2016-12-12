@@ -6,8 +6,8 @@ import CheckinContainer from './checkin/components/checkinContainer.jsx';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Main from './Main'; // Our custom react components
-
 import Create from './createAmbit/createAmbit.jsx';
+import Schedule from './schedule/components/scheduleContainer.jsx';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -49,16 +49,16 @@ class Home extends React.Component {
 //   }
 // }
 
-class Schedule extends React.Component {
-  render(){
-    return (
-      <div>
-        <h1>This page will show how much of a failure you are</h1>
-        <Link to="/">Home</Link>
-      </div>
-    );
-  }
-}
+// class Schedule extends React.Component {
+//   render(){
+//     return (
+//       <div>
+//         <h1>This page will show how much of a failure you are</h1>
+//         <Link to="/">Home</Link>
+//       </div>
+//     );
+//   }
+// }
 // Render the main app react component into the app div.
 // For more details see: https://facebook.github.io/react/docs/top-level-api.html#react.render
 render(
@@ -67,6 +67,7 @@ render(
     <Route component={Main}>
       <Route path='/' component={CheckinContainer}/>
       <Route path='/create' component={Create}/>
+      <Route path='/schedule' component={Schedule}/>
     </Route>
   </Router>,
   document.getElementById('app'));
