@@ -18,8 +18,8 @@ var ambitSchema = new Schema({
     sat: Boolean,
     sun: Boolean
   },
-  startDate: Date,
-  checkIns: [Date] // a history of successful check-ins
+  startDate: String, //a date converted to a string with toDateString
+  checkIns: [String] // a history of successful check-ins
   //time (when during the day are you supposed to check in)
   //repeats (every week? every other week? is this necessary?)
 });
