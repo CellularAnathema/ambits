@@ -8,9 +8,8 @@ const DropdownList = (props) => {
     <div className="dropdown">
     <DropDownMenu
       className="dropdown"
-      bsStyle="default"
       title="Frequency"
-      value={this.props.dropdownValue}
+      value={props.dropdownValue}
       onChange={(event) => onDropDownSelect(event) /* add in parameter from MenuItem */
       }>
       <MenuItem value={1} primaryText="Daily">Daily</MenuItem>

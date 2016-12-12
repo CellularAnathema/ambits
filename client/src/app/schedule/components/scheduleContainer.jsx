@@ -1,12 +1,11 @@
 import React from 'react';
 // import DropDownMenu from 'material-ui/DropDownMenu';
 // import MenuItem from 'material-ui/MenuItem';
-import DropDownList from './dropdown';
-import CommitButton from './commitButton';
-import StartDate from './startDate';
-import SelectDays from './selectDays';
-import AmbitNameInput from './ambitNameValue';
-import CommitButton from './CommitButton';
+import DropDownList from './dropdown.jsx';
+import CommitButton from './commitButton.jsx';
+import StartDate from './startDate.jsx';
+import SelectDays from './selectDays.jsx';
+import AmbitNameInput from './ambitNameInput.jsx';
 
 export default class ScheduleContainer extends React.Component {
   constructor (props) {
@@ -18,6 +17,10 @@ export default class ScheduleContainer extends React.Component {
       selectDaysValue: [],
       ambitNameValue: ''
     };
+    this.onNameInput = this.onNameInput.bind(this);
+    this.onDropDownSelect = this.onDropDownSelect.bind(this);
+    this.onStartDateSet = this.onStartDateSet.bind(this);
+    this.onSelectDaysInput = this.onSelectDaysInput.bind(this);
   }
 
   onDropDownSelect(dropdownEvent) {
@@ -55,28 +58,25 @@ export default class ScheduleContainer extends React.Component {
     return (
       <div>
         <div>
-          <ambitName
-            onNameInput={this.onNameInput.bind(this)}
+          <AmbitNameInput
+            onNameInput={this.onNameInput}
             ambitNameValue={this.state.ambitNameValue}
-          />
+            />
         </div>
         <div>
-          <DropDownMenu
-            onDropDownSelect={this.onDropDownSelect.bind(this)}
-            dropdownValue={this.state.dropdownValue}>
-          </DropDownMenu>
+          <DropDownList
+            onDropDownSelect={this.onDropDownSelect}
+            dropdownValue={this.state.dropdownValue}/>
         </div>
         <div>
-          <startDate
-            onStartDateSet={this.onStartDateSet.bind(this)}
-            startDateValue={this.state.startDateValue}
-          />
+          <StartDate
+            onStartDateSet={this.onStartDateSet}
+            startDateValue={this.state.startDateValue}/>
         </div>
         <div>
-          <selectDays
-            onSelectDaysInput={this.onSelectDaysInput.bind(this)}
-            selectDaysValue={this.state.selectDaysValue}
-          />
+          <SelectDays
+            onSelectDaysInput={this.onSelectDaysInput}
+            selectDaysValue={this.state.selectDaysValue}/>
         </div>
         <div>
           <CommitButton currentState = {this.state}/>

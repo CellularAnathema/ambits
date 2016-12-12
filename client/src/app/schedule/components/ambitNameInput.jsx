@@ -6,7 +6,7 @@ const AmbitNameInput = (props) => (
     <TextField
       hintText= "Ambit Name"
       errorText="Please enter an Ambit Name"
-      onKeyDown={props.onNameInput(e)}// listen for ENTER key down and set ambit name to current state
+      onKeyDown={props.onNameInput}
     />
   </div>
 );
