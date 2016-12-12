@@ -10,9 +10,10 @@ const CommitButton = (props) => (
     <RaisedButton
     label="Schedule It!"
     style={style}
-    onTouchEnd= {Utils.addNewAmbit(props.currentState, () => {
-        console.log('Successfully added ambit');
-      })
+    onTouchEnd= {() => (console.log('in commit button'))
+      // Utils.postAmbit(props.currentState, () => {
+      //   console.log('Successfully added ambit');
+      // })
     } // create ambit using date, name etc from current state
     />
   </div>

@@ -6,6 +6,7 @@ import CommitButton from './commitButton.jsx';
 import StartDate from './startDate.jsx';
 import SelectDays from './selectDays.jsx';
 import AmbitNameInput from './ambitNameInput.jsx';
+import * as Utils from '../../utils/utils.js'
 
 export default class ScheduleContainer extends React.Component {
   constructor (props) {
@@ -21,14 +22,16 @@ export default class ScheduleContainer extends React.Component {
     this.onDropDownSelect = this.onDropDownSelect.bind(this);
     this.onStartDateSet = this.onStartDateSet.bind(this);
     this.onSelectDaysInput = this.onSelectDaysInput.bind(this);
+    // this.state.handleDropDownChange =this.state.handleDropDownChange.bind(this);
   }
 
   onDropDownSelect(dropdownEvent) {
     this.setState({
       dropdownValue: dropdownEvent.target.value
     });
-    console.log(dropdownValue, 'dropdownvalue select');
+    console.log(dropdownEvent, 'dropdownvalue select');
   }
+
 
   onStartDateSet(event, date) {
     // var currentState = this.state;
@@ -66,7 +69,8 @@ export default class ScheduleContainer extends React.Component {
         <div>
           <DropDownList
             onDropDownSelect={this.onDropDownSelect}
-            dropdownValue={this.state.dropdownValue}/>
+            dropdownValue={this.state.dropdownValue}
+            handleDropDownChange={this.state.handleDropDownChange}/>
         </div>
         <div>
           <StartDate

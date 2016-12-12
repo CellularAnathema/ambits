@@ -40,6 +40,7 @@ export const postAmbit = function (ambit, callback){
   $.ajax({
     url:'/ambits',
     type: 'POST',
+    data: {ambit},
     contentType: 'application/json',
     success: function(data) {
       callback(data);
@@ -83,14 +84,14 @@ export const checkinAmbit = function(ambit, callback) {
  }
 };
 
-export const addNewAmbit = function(ambit, callback) {
-  $.ajax({
-    url: '__urlgoeshere__', //TODO: define the interface.
-    data: {ambit},
-    type: 'post',
-    contentType: 'application/json',
-    sucess: function(data) {
-      callback(data);
-    }
-  });
-};
+// export const addNewAmbit = function(ambit, callback) {
+//   $.ajax({
+//     url: '/ambits', //TODO: define the interface.
+//     data: {ambit},
+//     type: 'post',
+//     contentType: 'application/json',
+//     sucess: function(data) {
+//       callback(data);
+//     }
+//   });
+// };

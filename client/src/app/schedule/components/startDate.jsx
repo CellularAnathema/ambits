@@ -7,11 +7,14 @@ const StartDate = (props) => (
     hintText="Select Ambit Start Date"
     value = {props.startDateValue}
     //set start date value in current state
-    onChange= {props.onStartDateSet(function() {
-      console.log('start date on change');
-    }, date)}
+    onChange= {props.onStartDateSet}
     />
   </div>
 );
+
+// (function() {
+//       console.log('start date on change');
+//     }, date)
+
 
 export default StartDate;
