@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Utils from '../utils/utils.js';
+import Map from '../map/map.jsx'
 
 export default class CheckinContainer extends React.Component {
   constructor(props) {
@@ -37,6 +38,7 @@ export default class CheckinContainer extends React.Component {
     return(
       <div>
         <h1>Create a new Ambit</h1>
+          <Map />
           <input type='text' value={this.state.name} onChange={this.handleChange}/>
           <p>fake coords</p>
           <p>monday, wednesday and friday</p>

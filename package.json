@@ -25,6 +25,7 @@
     "ejs": "^2.5.5",
     "express": "^4.14.0",
     "jwt-simple": "^0.5.1",
+    "load-google-maps-api": "0.0.2",
     "material-ui": "^0.16.5",
     "mongoose": "^4.7.1",
     "passport": "^0.3.2",
