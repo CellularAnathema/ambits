@@ -3,7 +3,7 @@
 //private helper functions:
 var validateLocation = function (current, checkin) {
   const MIN_DIST = 200; // acceptable distance between ambit loc and checkin loc
-  
+
   var rad = function(x) {
     return x * Math.PI / 180;
   };
@@ -38,7 +38,7 @@ export const postCheckin = function (ambitId, callback) {
       callback(data);
     }
   });
-};  
+};
 
 export const getAllAmbits = function(callback) {
     $.ajax({
@@ -66,7 +66,7 @@ export const checkinAmbit = function(ambit, callback) {
       //inform user that it is not a valid checkin attempt
       console.log('please enable the navigation to use the app');
     }
-  }, function(err) { 
+  }, function(err) {
     throw err;
   }, {timeout: 10000});
  } else {
@@ -75,6 +75,16 @@ export const checkinAmbit = function(ambit, callback) {
  }
 };
 
-
+export const addNewAmbit = function(ambit, callback) {
+  $.ajax({
+    url: '__urlgoeshere__', //TODO: define the interface.
+    data: {ambit},
+    type: 'post',
+    contentType: 'application/json',
+    sucess: function(data) {
+      callback(data);
+    }
+  });
+};
 
 
