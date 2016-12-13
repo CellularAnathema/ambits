@@ -1,15 +1,14 @@
 # Ambitually (formerly Ambits)
 Mobile-first web application for habit tracking and location-based accountability
 
-> Commit to Success, Today!
+> Bet on Tomrrow, Today!
 
 ## Table of Contents
 
-1. [Team] (#Team)
+1. [Team](#Team)
 1. [Usage](#Usage)
 1. [Requirements](#Requirements)
 1. [Development](#Development)
-1. [Team](#team)
 1. [Contributing](#contributing)
 
 ## Team
