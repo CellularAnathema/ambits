@@ -5,7 +5,7 @@ const StartDate = (props) => (
   <div>
     <DatePicker
     hintText="Select Ambit Start Date"
-    value = {props.startDateValue}
+    value = {props.startDate}
     onChange= {props.onStartDateSet}
     />
   </div>

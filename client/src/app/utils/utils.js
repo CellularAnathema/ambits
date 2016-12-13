@@ -29,7 +29,7 @@ var validateLocation = function (current, checkin) {
 };
 
 const daysOftheWeek = function(boolArr) {
-  days = {
+  var days = {
     0:'Su',
     1:'M',
     2:'Tu',
@@ -41,7 +41,7 @@ const daysOftheWeek = function(boolArr) {
   var result ='';
   var displayDays = boolArr.map((b, i) => {
     b ? days.i : b;
-  }).filter(d => (!!d)).forEach((day, i, a) => { 
+  }).filter(d => (!!d)).forEach((day, i, a) => {
     if(i === a.length) {
       result += day;
     } else {
@@ -51,7 +51,7 @@ const daysOftheWeek = function(boolArr) {
   return result;
 };
 
-//Decorate ambits for client side 
+//Decorate ambits for client side
 const decorateAmbits = function(ambits) {
   ambits.forEach(ambit => {
     if(ambit.weekdays.every(day => day === true)) {
@@ -92,7 +92,8 @@ export const postAmbit = function (ambit, callback){
   axios({
     method:'post',
     url:'/ambits',
-    contentType: 'application/json'
+    contentType: 'application/json',
+    data: {ambit: ambit}
     }).then(function(response){
       callback(response, null);
     }).catch(function(error) {
@@ -150,7 +151,7 @@ export const checkinAmbit = function(ambit, successCb,errorCb) {
       //inform user that it is not a valid checkin attempt
       //cheating
       errorCb();
-    } 
+    }
   }, function(err) {
     throw err;
   }, {timeout: 10000});

@@ -9,6 +9,7 @@ module.exports.addAmbit = function (req, res, next) {
   //records a new ambit from the user
   var ambit = req.body.ambit;
   ambit.checkIns = [];
+  ambit.refId = Math.round(Math.random()*10000);
 
   findAmbit({refId: ambit.refId}) //should check per user as well
     .then(function(found){
