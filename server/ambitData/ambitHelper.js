@@ -1,21 +1,32 @@
 var Ambit = require('./ambitSchema.js');
 var q = require('q');
+var jwt = require('jwt-simple');
 
 var findAmbit = q.nbind(Ambit.findOne, Ambit);
 var findAllAmbits = q.nbind(Ambit.find, Ambit);
 var createAmbit = q.nbind(Ambit.create, Ambit);
+var deleteAmbit = q.nbind(Ambit.findOneAndRemove, Ambit);
+var updateAmbit = q.nbind(Ambit.findOneAndUpdate, Ambit);
 
 module.exports.addAmbit = function (req, res, next) {
   //records a new ambit from the user
   var ambit = req.body.ambit;
+  var token = req.headers.token;
+  var user = jwt.decode(token, process.env.JWT_SECRET || 'ancient dev secret');
+  ambit.userId = user._id;
   ambit.checkIns = [];
+  // TODO: create unique refId
   ambit.refId = Math.round(Math.random()*10000);
 
-  findAmbit({refId: ambit.refId}) //should check per user as well
+  findAmbit({
+    refId: ambit.refId,
+    userId: ambit.userId
+  })
     .then(function(found){
       if (found) {
         return next(new Error('Ambit refId already exists'));
       } else{
+        console.log(ambit)
         return createAmbit(ambit);
       }
     })
@@ -34,12 +45,16 @@ module.exports.saveCheckIn = function(req, res, next) {
   //TODO: check for a preexisting check-in for this date first
 
   var refId = req.params.id;
-
-  findAmbit({refId: refId})
+  var token = req.headers.token;
+  var user = jwt.decode(token, process.env.JWT_SECRET || 'ancient dev secret');
+  findAmbit({
+    refId: refId,
+    userId: user._id
+  })
     .then(function(ambit) {
       var now = new Date;
       var today = now.toDateString();
-      var lastCheck = ambit.checkIns[ambit.checkIns.length -1].toDateString();
+      var lastCheck = ambit.checkIns.length ? ambit.checkIns[ambit.checkIns.length -1].toDateString() : null;
       if (today !== lastCheck){
         ambit.checkIns.push( now );
         return ambit.save();
@@ -54,12 +69,44 @@ module.exports.saveCheckIn = function(req, res, next) {
 
 module.exports.getAmbits = function(req, res, next) {
   //send an array containing all the ambits back to the user.
-
-  findAllAmbits()
+  var token = req.headers.token;
+  var user = jwt.decode(token, process.env.JWT_SECRET || 'ancient dev secret');
+  findAllAmbits({ userId: user._id })
     .then(function(ambits){
       res.send(ambits);
     })
     .fail(function (error) {
+      next(error);
+    });
+};
+
+module.exports.deleteAmbit = function(req, res, next) {
+  var refId = req.body.ambit.refId;
+
+  // return the deleted ambit
+  deleteAmbit({refId: refId})
+    .then(function (ambit) {
+      console.log('Server: ambit deleted', ambit);
+      res.send(ambit);
+    })
+    .fail(function (error) {
+      console.log('Server: failed to delete ambit', error);
+      next(error);
+    });
+}
+
+module.exports.updateAmbit = function(req, res, next) {
+  //send an array containing all the ambits back to the user.
+  var refId = req.body.ambit.refId;
+
+  var ambit = req.body.ambit;
+  updateAmbit({refId: refId}, ambit)
+    .then(function(ambit){
+      console.log("Server: Ambit updated");
+      res.send(ambit);
+    })
+    .fail(function (error) {
+      console.log("Server: Failed to update Ambit");
       next(error);
     });
 };

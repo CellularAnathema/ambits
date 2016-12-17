@@ -4,24 +4,31 @@ import AmbitList from './ambitList.jsx';
 import {deepOrange500} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import CircularProgress from'material-ui/CircularProgress';
+import CircularProgress from 'material-ui/CircularProgress';
 import Snackbar from 'material-ui/Snackbar';
 import {Router, Route, Link} from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 //import Controls from './controls.jsx';
+import {deleteAmbit} from '../../utils/utils.js'
 
+// styling
+const buttonStyle = {
+  color: 'white',
+  backgroundColor:'orange',
+  position: 'fixed',
+  bottom: '0',
+};
 
-//styling
 const muiTheme = getMuiTheme({
   palette: {
     accent1Color: deepOrange500,
-  },
+  }
 });
 
 const createStyle = {
   color: 'white',
   backgroundColor:'orange',
-  'margin-top': '6px'
+  'marginTop': '6px'
 };
 
 
@@ -37,7 +44,7 @@ const userFeedback = {
   cheat:'Not at the Location',
   geoNotFount: 'Geolocation feature is not enabled',
   successfulCheckin: 'Check in successful',
-  checkInternetConnection:'Cannot fetch ambits:( Check internet connection'  
+  checkInternetConnection:'Cannot fetch ambits:( Check internet connection'
 };
 
 
@@ -54,16 +61,20 @@ export default class CheckinContainer extends React.Component {
         message: userFeedback.default
       }
     };
-    this.handleCheckinAmbit = this.handleCheckinAmbit.bind(this);   
+    this.handleCheckinAmbit = this.handleCheckinAmbit.bind(this);
   }
   componentDidMount() {
     Utils.getAllAmbits((data, error) => {
       if(error) {
         //send user feedback: no connection
-      } else {       
+      } else {
         this.setState({ambits: data});
       }
     });
+  }
+
+  componentWillReceiveProps() {
+    this.getAmbits()
   }
 
   getAmbits() {
@@ -71,6 +82,16 @@ export default class CheckinContainer extends React.Component {
       this.setState({
         ambits: data
       });
+    });
+  }
+
+  handleDeleteAmbit(ambit) {
+    deleteAmbit(ambit, (res, err) => {
+      if (err) {
+        console.log('Failed to delete ambit', err);
+      } else {
+        console.log('Ambit deleted', res);
+      }
     });
   }
 
@@ -88,6 +109,8 @@ export default class CheckinContainer extends React.Component {
       //update the database
       Utils.postCheckin(ambit.refId, () => {
         console.log('delivered');
+      }, function(err) {
+        console.log('err', err);
       });
     }, ()=>{
       //you can't cheat message:
@@ -102,16 +125,18 @@ export default class CheckinContainer extends React.Component {
       return (
         <MuiThemeProvider muiTheme={muiTheme}>
           <div>
-            <AmbitList ambits={this.state.ambits} 
-            handleCheckinAmbit={this.handleCheckinAmbit}/>
-            
-            <RaisedButton 
-            // onTouchTap={this.handleCreateAmbit} 
+            <AmbitList ambits={this.state.ambits}
+            handleCheckinAmbit={this.handleCheckinAmbit}
+            handleDeleteAmbit={this.handleDeleteAmbit.bind(this)}/>
+
+            <RaisedButton
+            onTouchTap={this.handleCreateAmbit}
             buttonStyle={createStyle}
             containerElement={<Link to='/map'/>}
             fullWidth = {true}
+            style={buttonStyle}
             >Create Ambit</RaisedButton>
-            
+
             <Snackbar
             open={this.state.feedback.open}
             message={this.state.feedback.message}
