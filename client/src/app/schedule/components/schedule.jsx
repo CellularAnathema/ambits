@@ -25,10 +25,10 @@ export default class ScheduleContainer extends React.Component {
       weekdays: [false, false, false, false, false, false, false],
       //[Su,M,T,w,Th,F,Sa]
       startDate: null,
-      startTime:null,
+      startTime: null,
       checkIns:[]
     };
-    
+
     this.onNameInput = this.onNameInput.bind(this);
     this.onStartDateSet = this.onStartDateSet.bind(this);
     this.onSelectTime = this.onSelectTime.bind(this);
@@ -64,18 +64,20 @@ export default class ScheduleContainer extends React.Component {
 
 // Need to reformat time object to not include current date before passing into database
   onSelectTime(event, time) {
-    // this.setState({
-    //   startTime:time
-    // });
-    // console.log(this.state);
+    let hours = time.getHours();
+    let minutes = time.getMinutes();
+    let newTime = hours + ":" + minutes;
+
+    this.setState({
+      startTime: newTime
+    });
   }
 
   onScheduleAmbit() {
     var ambitState = this.state;
-    console.log(ambitState);
 
-    Utils.postAmbit(ambitState, function() {
-      console.log('posted!');
+    Utils.postAmbit(ambitState, function(res) {
+      console.log('posted!', res);
     });
   }
 
@@ -173,6 +175,11 @@ onSelectDaysInputSaturday(event, checked) {
         <SelectDays
             onSelectDays={this.onSelectDays}
             weekdays={this.state.weekdays}/>
+        </div>
+        <div>
+          <CommitButton
+            currentState = {this.state}
+            onScheduleAmbit = {this.onScheduleAmbit}/>
         </div>
         <div>
           <CommitButton

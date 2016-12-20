@@ -167,10 +167,10 @@ class Map extends Component {
       v: '3.25'
     }).then((googleMaps) => {
       this.initMap(googleMaps);
-      // var map = this.map; // new instance of googleMaps
+      var map = this.map; // new instance of googleMaps
 
-      // googleMaps.event.addListener(this.map, 'drag', () => {
-      //   var centerLatLng = this.map.getCenter();
+      // googleMaps.event.addListener(map, 'drag', () => {
+      //   var centerLatLng = map.getCenter();
       //   this.centerMarker.setPosition(centerLatLng);
       // });
 
@@ -298,7 +298,7 @@ class Map extends Component {
         this.setIcon(defaultIcon);
       });
     }
-    // map.fitBounds(bounds);
+    map.fitBounds(bounds);
 
     var drawingManager = new googleMaps.drawing.DrawingManager({
       drawingMode: googleMaps.drawing.OverlayType.POLYGON,
@@ -629,7 +629,7 @@ class Map extends Component {
     return (
       <div className="container">
         <div className="options-box">
-          <table className="timemode">
+          <table>
             <tbody>
               <tr>
                 <td>
@@ -655,8 +655,7 @@ class Map extends Component {
               </tr>
             </tbody>
           </table>
-
-          <table className="destination">
+          <table>
             <tbody>   
               <tr>
                 <td>
@@ -688,11 +687,11 @@ class Map extends Component {
             </tbody>
           </table>
 
-        <table className="area">
+          <table>
           <tbody>
             <tr>
               <td>
-                <form id="area-field" onSubmit={this.handleAreaSubmit.bind(this)}>
+                <form id="area" onSubmit={this.handleAreaSubmit.bind(this)}>
                   <TextField
                     id="zoom-to-area-text"
                     value={this.state.textFieldValue}
@@ -719,8 +718,59 @@ class Map extends Component {
               </tr>
             </tbody>
           </table>
-        </div>
 
+
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <div className="radio" style={radio}>
+                  <span>Time</span>
+                  <RadioButton
+                    onClick={this.setTime.bind(this, 'time', '10')}
+                    label="10min" checked={this.state.radio.time === '10'}
+                  />
+                  <RadioButton
+                    onClick={this.setTime.bind(this, 'time', '15')}
+                    label="15min" checked={this.state.radio.time === '15'}
+                  />
+                  <RadioButton
+                    onClick={this.setTime.bind(this, 'time', '30')}
+                    label="30min" checked={this.state.radio.time === '30'}
+                  />
+                  <RadioButton
+                    onClick={this.setTime.bind(this, 'time', '60')}
+                    label="1hour" checked={this.state.radio.time === '60'}
+                  />
+                </div>
+              </td>
+              <td>
+                <div className="radio" style={radio}>
+                  <span>Mode</span>
+                  <RadioButton
+                    onClick={this.setMode.bind(this, 'mode', 'WALKING')}
+                    label="walk" checked={this.state.radio.mode === 'WALKING'}
+                  />
+                  <RadioButton
+                    onClick={this.setMode.bind(this, 'mode', 'BICYCLING')}
+                    label="bike" checked={this.state.radio.mode === 'BICYCLING'}
+                  />
+                  <RadioButton
+                    onClick={this.setMode.bind(this, 'mode', 'DRIVING')}
+                    label="drive" checked={this.state.radio.mode === 'DRIVING'}
+                  />
+                  <RadioButton
+                    onClick={this.setMode.bind(this, 'mode', 'TRANSIT')}
+                    label="transit" checked={this.state.radio.mode === 'TRANSIT'}
+                  />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>  
+
+
+        </div>
         <div id="map"></div> 
           <RaisedButton 
             onTouchTap={this.getCoordinates.bind(this)}   
